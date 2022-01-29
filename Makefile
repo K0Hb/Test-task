@@ -6,3 +6,6 @@ lint:
 
 test:
 	poetry run pytest --cov=main --cov-report=xml
+
+install:
+	poetry install
