@@ -6,19 +6,22 @@ from hashlib import sha256
 
 async def view_message(context: Dict) -> Dict:
     '''
-        Функция принимает 3 аргумента (имя, вакансия, желаемая з/п через год)
-        и выводит в консоль готовые предложения, далее необходимо ввести произволный
-        текст для хэширования.
+    Функция принимает словарь с контекстом
+    (имя, вакансия, желаемая з/п через год)
+    и выводит в консоль готовые предложения,
+    далее необходимо ввести произволный
+    текст для хэширования.
     '''
     # Словарь для формирования сообщений
     message_queue = {
         'message1': ('Моя имя: ', context['name']),
         'message2': ('Я откликаюсь на вакансию: ', context['vacancy']),
-        'message3': ('Мои ожидания по з/п через год: ', f"{str(context['salary'])}+"),
+        'message3': ('Мои ожидания по з/п через год: ',
+                     f"{str(context['salary'])}+"),
     }
 
     # Вывод сообщений
-    for message in message_queue:
+    for message in message_queue.items():
         print(f'{message_queue[message][0]}{message_queue[message][1]}')
         pause = random.randint(1, 5)
         await asyncio.sleep(pause)
@@ -36,15 +39,23 @@ async def view_message(context: Dict) -> Dict:
 
 # Вызов функции с необходимыми аргументами
 def start_script(name: str, vacancy: str, salary: int, text_hash=None) -> Dict:
+    '''
+    Функция принимает 4 аргумента, для образования словаря с конекстом
+    для дальнейшего вывода данных в консоль в асинхронном виде.
+    '''
+    # словарь с контекстом будущих сообщений
     context = {
         'name': name,
         'vacancy': vacancy,
         'salary': salary,
         'text_hash': text_hash,
     }
+    # запуск ассинхронного ввывода в консоль
     result = asyncio.run(view_message(context))
     return result
 
 
 if __name__ == "__main__":
-    start_script('Вячеслав', 'Стажёр-программист Python / Python Developer Trainee', 60)
+    start_script(
+        'Вячеслав', 'Стажёр-программист Python / Python Developer Trainee', 60
+    )
