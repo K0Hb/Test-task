@@ -42,6 +42,11 @@ def start_script(name: str, vacancy: str, salary: int, text_hash=None) -> Dict:
     '''
     Функция принимает 4 аргумента, для образования словаря с конекстом
     для дальнейшего вывода данных в консоль в асинхронном виде.
+    :param name: имя
+    :param vacancy: вакансия
+    :param salary: з.п.
+    :param text_hash: текст для хэширования
+    :return: словарь
     '''
     # словарь с контекстом будущих сообщений
     context = {
